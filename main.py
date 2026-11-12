@@ -1,3 +1,18 @@
+import os
+from threading import Thread
+from flask import Flask
+
+app_web = Flask(__name__)
+@app_web.route('/')
+def home():
+    return "Bot is running!"
+
+def run_web():
+    port = int(os.environ.get("PORT", 10000))
+    app_web.run(host="0.0.0.0", port=port)
+
+Thread(target=run_web, daemon=True).start()
+
 import os, yfinance as yf
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
